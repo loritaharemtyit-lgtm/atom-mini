@@ -1,0 +1,1826 @@
+version: 2.1
+
+jobs:
+  merge-asset-deep:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: sync QUEUED
+          command: |
+            mkdir -p /tmp/warm
+            set +o pipefail 2>/dev/null; seq 1 1302163 | awk '{print length($1),$1}' | sort -k1n | tail -n 1000 > /tmp/warm/FROZEN; true
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'FROZEN'
+  aug13-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/FROZEN 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  mfhrb56zno5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: maybe embed the session logs
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; sha1sum /etc/group >'/tmp/proposal_mock.chk'&&sha1sum -c '/tmp/proposal_mock.chk'; true ; } > /tmp/warm/NICKEL
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'NICKEL'
+  brodcast-79:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/NICKEL 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  qEnd:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Relocate the port 443 to tier two
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls -s -t /etc/skel | sort -f; true ; } > /tmp/warm/qrk6bg3
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'qrk6bg3'
+  green-light-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/qrk6bg3 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  mesage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: 65 stain the samples
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; grep -r -n "shell" /usr/share/doc/bash | sort | head -n 8; true ; } > /tmp/warm/sx24e
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'sx24e'
+  juliet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/sx24e 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  shouldReset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Touchdown
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; touch -t 201105211200 "/tmp/fixture-debug-teal.txt" && stat -c %y "/tmp/fixture-debug-teal.txt"; true ; } > /tmp/warm/7vO
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - '7vO'
+  qi-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/7vO 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  VIEW_HUGE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Properly warm the TLS certs
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; cat /etc/hosts |command grep -niv host; true ; } > /tmp/warm/temp-94b7
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'temp-94b7'
+  feat-4530:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/temp-94b7 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  Input2CNN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: noop
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls -l /dev | grep "null" | wc -l; true ; } > /tmp/warm/b5528403-cfa0-2596-3251
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'b5528403-cfa0-2596-3251'
+  sierra-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/b5528403-cfa0-2596-3251 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  CyIN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Prep Before Spin
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; for thing in `seq 5`; do sleep 0.1; echo "$thing"; done; true ; } > /tmp/warm/5714-MD5.ROM
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - '5714-MD5.ROM'
+  sm-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/5714-MD5.ROM 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  FormCanvasHandlerCur:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: MuxCoverArt
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; sha224sum $HOME/.bashrc |cut -d' ' -f1; true ; } > /tmp/warm/gOW
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'gOW'
+  assemble-full-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/gOW 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  route_2009_02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Open Rate Limits Phase
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; awk '{ print $1 }' /etc/hosts | sort | uniq -c | sort -nr; true ; } > /tmp/warm/theta.moor
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'theta.moor'
+  nebula-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/theta.moor 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  XXLO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: SUP1429 Conveyor Count
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; awk '{print $2}' </etc/hosts|shuf -n 4; true ; } > /tmp/warm/LedgerSparkFrame
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'LedgerSparkFrame'
+  ensure-staging-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/LedgerSparkFrame 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  aa-37-b8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Mend the shared drive
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; cat /etc/hosts /etc/shells >"${TMPDIR:-/tmp}/epic-standup1.bak" && wc -l "${TMPDIR:-/tmp}/epic-standup1.bak"; true ; } > /tmp/warm/DSC-00007792
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'DSC-00007792'
+  BuildService:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/DSC-00007792 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  fireProduct:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: A18 ACCOUNT MANAGER PAGE
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | awk -F: '{print $1}' | sed 's/^/- /'; true ; } > /tmp/warm/VUccQff4qU
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'VUccQff4qU'
+  dp-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/VUccQff4qU 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  bgm_cha:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Cancel Idle Nodes Routine
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 3 -type f -name "shm" -printf "%u:%g %p\n" 2>/dev/null | xargs -r ls -ld | head -n 5; true ; } > /tmp/warm/CRISP_THETA_MOTH_CRISP
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'CRISP_THETA_MOTH_CRISP'
+  sirius-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/CRISP_THETA_MOTH_CRISP 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  eagerVec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Must spin the petri dishes
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nvic,delhi,67\nyuki,denver,79\ntom,hanoi,61\nivan,boston,91\n' > '/tmp/export.dat' && cut -d, -f2 '/tmp/export.dat' | tail -n +2 | sort -u; true ; } > /tmp/warm/REF-36323-OK
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'REF-36323-OK'
+  Rollout_App4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/REF-36323-OK 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  counter_vec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Bake Skybox For The Vertical Slice
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; help printf | head -n5; true ; } > /tmp/warm/v_40714
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'v_40714'
+  dp:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/v_40714 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  vVbz8IQ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Give me the sampler
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 1 -type f -name 'README*' -exec dirname {} \;; true ; } > /tmp/warm/70.47.206.138
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - '70.47.206.138'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/70.47.206.138 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  uCacheSegment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Codename Final Arrow
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls /usr/sbin| grep -v '^[a-m]'| sort| uniq --count; true ; } > /tmp/warm/SOCketGADgeTMARkeT
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'SOCketGADgeTMARkeT'
+  dotnet8-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/SOCketGADgeTMARkeT 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  ugdf53al5j2iq961:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: collectAccessCardsJob
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; touch -d "2020-01-01 12:00" "/tmp/Stadium.csv" && date -r "/tmp/Stadium.csv"; true ; } > /tmp/warm/neuTrOnFERmIOnAToLl
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'neuTrOnFERmIOnAToLl'
+  feb12-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/neuTrOnFERmIOnAToLl 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Site alpha bake
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls -X -s /usr/sbin | head -n 8; true ; } > /tmp/warm/ahwbinm6z7x2h
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'ahwbinm6z7x2h'
+  edge-v3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/ahwbinm6z7x2h 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  glyphs2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: idk distill the reward model
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; printf '%s\n' teal yellow pink magenta white; true ; } > /tmp/warm/sample-77b
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'sample-77b'
+  assemble-full-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/sample-77b 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  sqPE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: maybe hover the image carousel
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=4939\nuser=yuki\ndebug=true\n' > "/tmp/sugar-crate.conf" && (. "/tmp/sugar-crate.conf" && echo "$host:$port"); true ; } > /tmp/warm/P00032686
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'P00032686'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/P00032686 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  uniColumn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Unlock freeze
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=7225\nuser=ann\ndebug=true\n' >/tmp/ruby.csv && sed -n "s/^user=//p" /tmp/ruby.csv; true ; } > /tmp/warm/jJ
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'jJ'
+  add-oauth:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/jJ 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  x_test:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: collapse the login button SLOWLY
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; grep -r -h alias /etc/default 2> /dev/null|tail -5; true ; } > /tmp/warm/ssBm22rT3c
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'ssBm22rT3c'
+  atlas-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/ssBm22rT3c 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  reactor-button-seed-scarlet:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Playtest v14 Beta
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/comment-login2" && ls -ld "/tmp/comment-login2" && rmdir "/tmp/comment-login2"; true ; } > /tmp/warm/access-bcbcb.log
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'access-bcbcb.log'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/access-bcbcb.log 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  button_pad_session:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Bring the raw events to a boil
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 2 \( -name 'shm' -o -name 'std*' \) -exec ls -ld {} + 2>/dev/null | sort | head -n 6; true ; } > /tmp/warm/silverkernel
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'silverkernel'
+  assemble-end-to-end-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/silverkernel 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  fJsa0eoKRt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: eh playtest the lightmaps whatever
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; [ -x /bin/sh ] && echo yes || echo 'no'; true ; } > /tmp/warm/520edd49-362e-c2cc
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - '520edd49-362e-c2cc'
+  realease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/520edd49-362e-c2cc 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  ylljxk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: 12 exporting teacher model
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; touch "/tmp/mileage-garlic.conf" && stat -c "%U %G" "/tmp/mileage-garlic.conf"; true ; } > /tmp/warm/REF17829
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'REF17829'
+  raj-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/REF17829 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  GraphPartial:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: 79 warm display panel
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls --reverse /bin/b* | sort -R | head --lines=3; true ; } > /tmp/warm/dbc67151-54bb-1bfe-da33-3f56dc204ebb
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'dbc67151-54bb-1bfe-da33-3f56dc204ebb'
+  Build_App4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/dbc67151-54bb-1bfe-da33-3f56dc204ebb 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+  R_AVG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: 140 INPUT dialogue tree
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; [ -k /tmp ] && echo yes || echo "no"; true ; } > /tmp/warm/exp-83i
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'exp-83i'
+  VerifySuite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Read handoff file
+          command: |
+            sed -e 'y/0123456789/ABCDEFGHIJ/' /tmp/warm/exp-83i 2>/dev/null | head -c 20 || true
+      - run:
+          name: Pull latest
+          command: git clone --depth 5 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: tar --extract -f notes-baked.tar
+      - run:
+          name: Hash artifacts
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: mkdir -p artifacts
+      - run:
+          name: Record build info
+          command: env | wc -l
+      - run:
+          command: (./task-main)
+
+  GUI_Height:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: CustomerRecordEnrichment
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; echo "this is a test" | tee -a /tmp/library_part_logo.msg >/dev/null && wc -l /tmp/library_part_logo.msg; true ; } > /tmp/warm/P00032686
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'P00032686'
+  peekTextAI:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: afterPostmortemTagging
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; env | grep -c =; true ; } > /tmp/warm/jJ
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'jJ'
+  attachment_shade:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Repeat Payment
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 3 -name "*lock*" -exec ls -ld {} \; 2>/dev/null | sort; true ; } > /tmp/warm/NICKEL
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'NICKEL'
+  armor-trait-stale-rollback:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Refund the cash forecast period 5
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; dd if=/dev/zero of='/tmp/violet.conf' bs=1K count=14 status=none && ls -l '/tmp/violet.conf'; true ; } > /tmp/warm/temp-94b7
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'temp-94b7'
+  validatef:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Recognise the CSV exports and have done with it
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; touch "/tmp/ivoryleadsgrid.md" && cp "/tmp/ivoryleadsgrid.md"{,.bak} && ls "/tmp/ivoryleadsgrid.md"*; true ; } > /tmp/warm/ssBm22rT3c
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'ssBm22rT3c'
+  brush-to-active:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Select the empty state slowly
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; if [ -f $HOME/.bashrc ] ; then echo true; fi; true ; } > /tmp/warm/SOCketGADgeTMARkeT
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'SOCketGADgeTMARkeT'
+  LANG_CA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Weigh Calibration Beads And Rinse
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; shuf -e chunk pile model widget export; true ; } > /tmp/warm/sample-77b
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'sample-77b'
+  ShallowAvatarProvider:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: RESET CABLE TRAY COMPLETE
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; for p in /etc/s*; do stat -c "%A %n" ${p}; done; true ; } > /tmp/warm/theta.moor
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'theta.moor'
+  kernelType:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Stop encoding the timeline
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; find /proc/self -type f -mmin +60 -print0 2>/dev/null|xargs -0r stat -c %s|awk '{s+=$1} END {print s}'; true ; } > /tmp/warm/REF-36323-OK
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'REF-36323-OK'
+  yolo5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: The drift monitor is all set
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; tail -n3 /etc/passwd|cut -f6 -d':'; true ; } > /tmp/warm/gOW
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'gOW'
+  colSlate:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: unlock
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; ls -G --ignore='[a-m]*' /dev/tty[0-9] | paste -sd ' '; true ; } > /tmp/warm/520edd49-362e-c2cc
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - '520edd49-362e-c2cc'
+  g3up0za:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Upload the visual diffs across to region a
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; hash -r && echo "hash table cleared"; true ; } > /tmp/warm/ahwbinm6z7x2h
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'ahwbinm6z7x2h'
+  AllTheStates:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/warm
+      - run:
+          name: Enchant the team
+          command: |
+            mkdir -p /tmp/warm
+            { set +o pipefail 2>/dev/null; for w in manila hanoi dublin; do printf '%-8s %d\n' "$w" ${#w}; done | sort -r; true ; } > /tmp/warm/DSC-00007792
+            # tag
+            echo "[stage-ok]"
+      - persist_to_workspace:
+          root: /tmp/warm
+          paths:
+            - 'DSC-00007792'
+workflows:
+  build-and-test:
+    jobs:
+      - sqPE
+      - GUI_Height:
+          requires:
+            - sqPE
+      - strated:
+          requires:
+            - GUI_Height
+      - uniColumn:
+          requires:
+            - GUI_Height
+      - peekTextAI:
+          requires:
+            - uniColumn
+      - add-oauth:
+          requires:
+            - peekTextAI
+      - mfhrb56zno5:
+          requires:
+            - peekTextAI
+      - attachment_shade:
+          requires:
+            - mfhrb56zno5
+      - brodcast-79:
+          requires:
+            - attachment_shade
+      - VIEW_HUGE:
+          requires:
+            - attachment_shade
+      - armor-trait-stale-rollback:
+          requires:
+            - VIEW_HUGE
+      - feat-4530:
+          requires:
+            - armor-trait-stale-rollback
+      - x_test:
+          requires:
+            - armor-trait-stale-rollback
+      - validatef:
+          requires:
+            - x_test
+      - atlas-alpha:
+          requires:
+            - validatef
+      - uCacheSegment:
+          requires:
+            - validatef
+      - brush-to-active:
+          requires:
+            - uCacheSegment
+      - dotnet8-vet:
+          requires:
+            - brush-to-active
+      - glyphs2:
+          requires:
+            - brush-to-active
+      - LANG_CA:
+          requires:
+            - glyphs2
+      - assemble-full-regression-suite:
+          requires:
+            - LANG_CA
+      - route_2009_02:
+          requires:
+            - LANG_CA
+      - ShallowAvatarProvider:
+          requires:
+            - route_2009_02
+      - nebula-rc:
+          requires:
+            - ShallowAvatarProvider
+      - eagerVec:
+          requires:
+            - ShallowAvatarProvider
+      - kernelType:
+          requires:
+            - eagerVec
+      - Rollout_App4:
+          requires:
+            - kernelType
+      - FormCanvasHandlerCur:
+          requires:
+            - kernelType
+      - yolo5:
+          requires:
+            - FormCanvasHandlerCur
+      - assemble-full-test-matrix:
+          requires:
+            - yolo5
+      - fJsa0eoKRt:
+          requires:
+            - yolo5
+      - colSlate:
+          requires:
+            - fJsa0eoKRt
+      - realease:
+          requires:
+            - colSlate
+      - EagerDualCtxConverter:
+          requires:
+            - colSlate
+      - g3up0za:
+          requires:
+            - EagerDualCtxConverter
+      - edge-v3:
+          requires:
+            - g3up0za
+      - aa-37-b8:
+          requires:
+            - g3up0za
+      - AllTheStates:
+          requires:
+            - aa-37-b8
+      - BuildService:
+          requires:
+            - AllTheStates
+      - vVbz8IQ
+      - validte:
+          requires:
+            - vVbz8IQ
+      - merge-asset-deep:
+          requires:
+            - vVbz8IQ
+      - aug13-canary:
+          requires:
+            - merge-asset-deep
+      - counter_vec:
+          requires:
+            - merge-asset-deep
+      - dp:
+          requires:
+            - counter_vec
+      - button_pad_session:
+          requires:
+            - counter_vec
+      - assemble-end-to-end-test-matrix:
+          requires:
+            - button_pad_session
+      - XXLO:
+          requires:
+            - button_pad_session
+      - ensure-staging-regression-suite:
+          requires:
+            - XXLO
+      - R_AVG:
+          requires:
+            - XXLO
+      - VerifySuite:
+          requires:
+            - R_AVG
+      - shouldReset:
+          requires:
+            - R_AVG
+      - qi-ship:
+          requires:
+            - shouldReset
+      - GraphPartial:
+          requires:
+            - shouldReset
+      - Build_App4:
+          requires:
+            - GraphPartial
+      - fireProduct:
+          requires:
+            - GraphPartial
+      - dp-x:
+          requires:
+            - fireProduct
+      - ylljxk:
+          requires:
+            - fireProduct
+      - raj-test:
+          requires:
+            - ylljxk
+      - CyIN:
+          requires:
+            - ylljxk
+      - sm-v2:
+          requires:
+            - CyIN
+      - mesage:
+          requires:
+            - CyIN
+      - juliet:
+          requires:
+            - mesage
+      - qEnd:
+          requires:
+            - mesage
+      - green-light-go:
+          requires:
+            - qEnd
+      - ugdf53al5j2iq961:
+          requires:
+            - qEnd
+      - feb12-rev:
+          requires:
+            - ugdf53al5j2iq961
+      - reactor-button-seed-scarlet:
+          requires:
+            - ugdf53al5j2iq961
+      - fire-up:
+          requires:
+            - reactor-button-seed-scarlet
+      - bgm_cha:
+          requires:
+            - reactor-button-seed-scarlet
+      - sirius-alpha:
+          requires:
+            - bgm_cha
+      - Input2CNN:
+          requires:
+            - bgm_cha
+      - sierra-6:
+          requires:
+            - Input2CNN
